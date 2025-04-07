@@ -1,0 +1,22 @@
+CACHE MANIFEST
+# v1.0.1 - 2025-04-06
+
+# HTML documents
+index.html
+
+# Resources to cache
+icon.png
+splash.png
+favicon.ico
+exec
+loader
+manifest.json
+install-guide.png
+
+# Network fallback
+NETWORK:
+*
+
+# Fallback content
+FALLBACK:
+/ index.html
